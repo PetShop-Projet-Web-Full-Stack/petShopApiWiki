@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="66bdc43d">
+        <description>Created after removal of "QuickStart" from Help Instance</description>
+        <accepts>QuickStart.html</accepts>
+    </rule>
+    <rule id="670b0473">
+        <description>Created after removal of "Tutorial" from Help Instance</description>
+        <accepts>Tutorial.html</accepts>
+    </rule>
+    <rule id="7f93b2ca">
+        <description>Created after removal of "QucikStart" from Help Instance</description>
+        <accepts>QucikStart.html</accepts>
+    </rule>
+    <rule id="16605402">
+        <description>Created after removal of "QuickStart" from Help Instance</description>
+        <accepts>QuickStart.html</accepts>
+    </rule>
+</rules>
