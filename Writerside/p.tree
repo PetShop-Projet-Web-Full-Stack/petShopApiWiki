@@ -2,9 +2,11 @@
 <!DOCTYPE instance-profile
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
-<instance-profile id="hi"
-                 name="Help Instance"
+<instance-profile id="p"
+                 name="PetShopApi-wiki"
                  start-page="Default-topic.md">
 
     <toc-element topic="Default-topic.md"/>
+    <toc-element topic="QuickStarter.md"/>
+    <toc-element topic="Tutorial.md"/>
 </instance-profile>

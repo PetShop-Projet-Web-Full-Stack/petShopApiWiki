@@ -22,4 +22,8 @@
         <description>Created after removal of "QuickStart" from Help Instance</description>
         <accepts>QuickStart.html</accepts>
     </rule>
+    <rule id="1dedfcf4">
+        <description>Created after removal of "How to use postman" from PetShopApi-wiki</description>
+        <accepts>How-to-use-postman.html</accepts>
+    </rule>
 </rules>
