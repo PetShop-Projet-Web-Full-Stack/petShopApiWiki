@@ -44,7 +44,6 @@ version [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpost
 ## Create a new request in Postman
 1. On the left sidebar select the 'Collections' tab and click on the collection you just created
 2. Click on the more options button '...' and select 'Add Request'
-![Create a new request in Postman](add-request-postman.png)
 3. Name your request (ex : get user)
 4. Select the request method (ex : get)
 5. Set the url to http://localhost:8000/ or the url of your api and add the endpoint (ex : /api/user)
