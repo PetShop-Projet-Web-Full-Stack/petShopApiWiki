@@ -1,0 +1,253 @@
+openapi: 3.0.0
+info:
+  title: PetShop API
+  version: 1.0.0
+  description: This is a backend API for the PetShop spa application. It is a RESTFULL API built with Laravel. Created for study project.
+  contact:
+    name: John Doe
+    email: contact@pet-shop-fonda.com
+servers:
+  - url: http://localhost:8000/api
+    description: Local server
+  - url: https://monapi.com/api
+    description: Production server
+paths:
+  /api/register:
+    post:
+      tags:
+        - register
+      summary: Register a new user
+      operationId: register
+      parameters:
+        - name: X-XSRF-TOKEN
+          in: header
+          description: CSRF token (XSRF-TOKEN)
+          required: true
+          schema:
+            type: string
+        - name: Referer
+          in: header
+          description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/usersInput'
+
+      responses:
+        '201':
+          description: OK - User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usersOutput'
+
+        '200':
+          description: OK - User already authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usersOutput'
+
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/login:
+    post:
+      tags:
+        - login
+      summary: Login a user
+      operationId: login
+      parameters:
+        - name: X-XSRF-TOKEN
+          in: header
+          description: CSRF token (XSRF-TOKEN)
+          required: true
+          schema:
+            type: string
+        - name: Referer
+          in: header
+          description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usersOutput'
+
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/logout:
+    post:
+      tags:
+        - logout
+      summary: Logout a user
+      operationId: logout
+      parameters:
+        - name: X-XSRF-TOKEN
+          in: header
+          description: CSRF token
+          required: true
+          schema:
+            type: string
+        - name: Referer
+          in: header
+          description: Referer
+          required: true
+          schema:
+              type: string
+              description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
+      responses:
+        '204':
+          description: No Content - User logged out
+
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /sanctum/csrf-cookie:
+    get:
+      tags:
+        - sanctum
+      summary: Get CSRF token cookie
+      operationId: csrf-cookie
+      description: Get CSRF token cookie to be used in the next request to the API
+      responses:
+        '204':
+          description: No Content - CSRF token set
+          headers:
+            X-XSRF-TOKEN:
+              description: CSRF token
+              schema:
+                type: string
+                format: uuid
+                example: 8f8b7c7a-8b7c-4f8b-8b7c-7a8b7c4f8b7c
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
+# Components templates for the API documentation
+components:
+  schemas:
+    usersInput:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        password_confirmation:
+          type: string
+          required: true
+    usersOutput:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        email_verified_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    error:
+      type: object
+      properties:
+        message:
+          description: Error message
+          type: string
+        errors:
+          description: Validation errors
+          type: object
+    errorAlreadyAuth:
+      type: object
+      properties:
+        message:
+          description: Error message - User is already authenticated
+          type: string
+    errorCsrf:
+      type: object
+      properties:
+        message:
+          description: CSRF token validation error the request header is missing the CSRF token or the token is invalid
+          type: string
+          required: true
+    errorUnauthenticated:
+      type: object
+      properties:
+        message:
+          description: Unauthenticated - The user must be authenticated
+          type: string
