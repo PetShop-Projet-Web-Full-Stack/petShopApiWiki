@@ -30,6 +30,10 @@ To install the dependencies you need to run the following command:
 composer install
 ```
 
+<warning>
+    You need to have composer installed on your machine, if you use WSL start linux terminal and run the command.
+</warning>
+
 ### Create .env file
 
 To create the .env file you need to run the following command:
@@ -37,6 +41,7 @@ To create the .env file you need to run the following command:
 ```bash
 cp .env.example .env
 ```
+
 <note>
  You can change the database name, username and password in the .env file
 </note>
@@ -80,6 +85,10 @@ To install the dependencies you need to run the following command:
 ```bash
 composer install
 ```
+
+<warning>
+    You need to have composer installed on your machine, if you use WSL start linux terminal and run the command.
+</warning>
 
 ### Create .env file {id="create-env-file_1"}
 
