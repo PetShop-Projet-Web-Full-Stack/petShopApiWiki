@@ -14,14 +14,36 @@
         <toc-element topic="Authentication.md">
             <toc-element topic="Create-user.md"/>
             <toc-element topic="login.md"/>
-            <toc-element topic="Logout.md">
-            </toc-element>
+            <toc-element topic="Logout.md"/>
             <toc-element topic="Forgot-password.md"/>
             <toc-element topic="Reset-password.md"/>
             <toc-element topic="Update-user-password.md"/>
             <toc-element topic="Confirm-password.md"/>
             <toc-element topic="Confirm-password-status.md"/>
         </toc-element>
-        <toc-element topic="Update-user-information.md"/>
+        <toc-element topic="Species.md">
+            <toc-element topic="Create-a-species.md"/>
+            <toc-element topic="Get-all-species.md"/>
+            <toc-element topic="Get-a-species.md"/>
+        </toc-element>
+        <toc-element topic="Races.md">
+            <toc-element topic="Get-a-race.md"/>
+            <toc-element topic="Get-all-races.md"/>
+            <toc-element topic="Create-a-race.md"/>
+        </toc-element>
+        <toc-element topic="PetShops.md">
+            <toc-element topic="Get-a-petshop.md"/>
+            <toc-element topic="Get-all-petshops.md"/>
+            <toc-element topic="Create-a-petshop.md"/>
+        </toc-element>
+        <toc-element topic="Animals.md">
+            <toc-element topic="Get-an-animal.md"/>
+            <toc-element topic="Get-all-animals.md"/>
+            <toc-element topic="Create-an-animal.md"/>
+        </toc-element>
+        <toc-element topic="Favorites.md">
+            <toc-element topic="Create-a-favorite.md"/>
+            <toc-element topic="Get-all-favorites.md"/>
+        </toc-element>
     </toc-element>
 </instance-profile>

@@ -1,6 +1,6 @@
 # Authentication
 
-This parte of the documentation is about authentication with Sanctum 3 & fortify.
+This part of the documentation is about authentication with Sanctum 3 & fortify.
 
 ## Authentication with Sanctum 3 & fortify
 
