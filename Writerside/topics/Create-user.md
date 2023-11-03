@@ -1,9 +1,11 @@
 # Create user
 
+This endpoint is used to create a new user.
+
 <note>
     You need a CSRF token to make this request to the server use Get CSRF cookie request to get it.
 </note>
-
+> the password must be at least 8 characters long.
 <api-endpoint openapi-path="./../openapi.yaml" endpoint="/api/register" method="POST">
     <request>
         <sample lang="JSON" title="Payload">
