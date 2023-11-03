@@ -1,5 +1,7 @@
 # Login
 
+This endpoint is used to authenticate a user with email and password.
+
 <note>
     You need a CSRF token to make this request to the server use Get CSRF cookie request to get it.
 </note>

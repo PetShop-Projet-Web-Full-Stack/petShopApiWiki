@@ -19,18 +19,12 @@ paths:
       summary: Register a new user
       operationId: register
       parameters:
-        - name: X-XSRF-TOKEN
+        - name: HeaderAuth
           in: header
-          description: CSRF token (XSRF-TOKEN)
           required: true
           schema:
-            type: string
-        - name: Referer
-          in: header
-          description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
-          required: true
-          schema:
-            type: string
+            $ref: '#/components/schemas/headerAuth'
+
       requestBody:
         content:
           application/json:
@@ -43,14 +37,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/usersOutput'
+                $ref: '#/components/schemas/responseUser'
 
         '200':
           description: OK - User already authenticated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/usersOutput'
+                $ref: '#/components/schemas/responseUser'
 
         '422':
           description: Unpronounceable Content - Validation errors
@@ -64,13 +58,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorCsrf'
-
-        default:
-          description: Error - Returns an error message
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
   /api/login:
     post:
       tags:
@@ -78,18 +65,11 @@ paths:
       summary: Login a user
       operationId: login
       parameters:
-        - name: X-XSRF-TOKEN
+        - name: HeaderAuth
           in: header
-          description: CSRF token (XSRF-TOKEN)
           required: true
           schema:
-            type: string
-        - name: Referer
-          in: header
-          description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
-          required: true
-          schema:
-            type: string
+            $ref: '#/components/schemas/headerAuth'
         - name: email
           in: query
           description: User email
@@ -108,7 +88,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/usersOutput'
+                $ref: '#/components/schemas/responseUser'
 
         '422':
           description: Unpronounceable Content - Validation errors
@@ -123,12 +103,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/errorCsrf'
 
-        default:
-          description: Error - Returns an error message
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
   /api/logout:
     post:
       tags:
@@ -136,19 +110,11 @@ paths:
       summary: Logout a user
       operationId: logout
       parameters:
-        - name: X-XSRF-TOKEN
+        - name: HeaderAuth
           in: header
-          description: CSRF token
           required: true
           schema:
-            type: string
-        - name: Referer
-          in: header
-          description: Referer
-          required: true
-          schema:
-            type: string
-            description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
+            $ref: '#/components/schemas/headerAuth'
       responses:
         '204':
           description: No Content - User logged out
@@ -160,12 +126,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/errorCsrf'
 
-        default:
-          description: Error - Returns an error message
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
   /sanctum/csrf-cookie:
     get:
       tags:
@@ -175,24 +135,277 @@ paths:
       description: Get CSRF token cookie to be used in the next request to the API
       responses:
         '204':
-          description: No Content - CSRF token set
-          headers:
-            X-XSRF-TOKEN:
-              description: CSRF token
+          description: No Content - CSRF token set on cookie
+
+  /api/forgot-password:
+    post:
+      tags:
+        - forgot-password
+      summary: Forgot password
+      operationId: forgot-password
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Password reset link sent
+          content:
+            application/json:
               schema:
-                type: string
-                format: uuid
-                example: 8f8b7c7a-8b7c-4f8b-8b7c-7a8b7c4f8b7c
-        default:
-          description: Error - Returns an error message
+                $ref: '#/components/schemas/responseUser'
+
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+
+  /api/reset-password:
+    post:
+      tags:
+        - reset-password
+      summary: Reset password
+      operationId: reset-password
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: token
+          in: query
+          description: Reset password token sent by email after forgot password request
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: New password
+          required: true
+          schema:
+            type: string
+        - name: password_confirmation
+          in: query
+          description: New password confirmation
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Password rested'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseMsg'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+        '422':
+          description: Unpronounceable Content - Validation errors
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
 
+  /api/user/password:
+    put:
+      tags:
+        - update-password
+      summary: Update user password
+      operationId: update-password
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: current_password
+          in: query
+          description: Current user password
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: New password
+          required: true
+          schema:
+              type: string
+        - name: password_confirmation
+          in: query
+          description: New password confirmation
+          required: true
+          schema:
+              type: string
+      responses:
+        '200':
+          description: OK - Password updated successfully empty response
+        '401':
+          description: Unauthorized - User not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorUnauthenticated'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
+  /api/user/profile-information:
+    put:
+      tags:
+        - update-profile-information
+      summary: Update user profile information
+      operationId: update-profile-information
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '200':
+          description: OK - User profile information updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUser'
+        '401':
+          description: Unauthorized - User not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorUnauthenticated'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
+  /api/user/confirm-password:
+    post:
+      tags:
+        - confirm-password
+      summary: Confirm user password
+      operationId: confirm-password
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '201':
+          description: created - Password confirmed successfully empty response
+        '401':
+          description: Unauthorized - User not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorUnauthenticated'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/user/confirmed-password-status:
+    get:
+      tags:
+        - confirmed-password-status
+      summary: Get user confirmed password status
+      operationId: confirmed-password-status
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '200':
+          description: OK - Returns true if the user has confirmed his password recently
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '401':
+          description: Unauthorized - User not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorUnauthenticated'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+
+
+
+
+
 # Components templates for the API documentation
 components:
   schemas:
+    headerAuth:
+      type: object
+      properties:
+        X-XSRF-TOKEN:
+          description: CSRF token get by the route /sanctum/csrf-cookie
+          type: string
+          format: uuid
+          example: 8f8b7c7a-8b7c-4f8b-8b7c-7a8b7c4f8b7c
+        Referer:
+          description: Referer sent by the client and this obligatory to be defined in SANCTUM_STATEFUL_DOMAINS on .env file of the backend
+          type: string
+          example: http://localhost:8080
     usersInput:
       type: object
       properties:
@@ -208,7 +421,7 @@ components:
         password_confirmation:
           type: string
           required: true
-    usersOutput:
+    responseUser:
       type: object
       properties:
         id:
@@ -220,6 +433,11 @@ components:
         created_at:
           type: string
         updated_at:
+          type: string
+    responseMsg:
+      type: object
+      properties:
+        message:
           type: string
     error:
       type: object
@@ -237,9 +455,11 @@ components:
           description: CSRF token validation error the request header is missing the CSRF token or the token is invalid
           type: string
           required: true
+
     errorUnauthenticated:
       type: object
       properties:
         message:
-          description: Unauthenticated - The user must be authenticated
+          description: Unauthenticated error
           type: string
+          required: true
