@@ -10,7 +10,6 @@ if the user is authenticated, use the endpoint [Update user password](Update-use
 <api-endpoint openapi-path="./../openapi.yaml" endpoint="/api/forgot-password" method="POST">
 <request>
 <sample lang="JSON" title="Payload">
-
 {
     "email": "john.doe@exempl.com"
 }
