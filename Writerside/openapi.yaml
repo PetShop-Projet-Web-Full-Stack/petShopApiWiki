@@ -7,7 +7,7 @@ info:
     name: John Doe
     email: contact@pet-shop-fonda.com
 servers:
-  - url: http://localhost:8000/api
+  - url: http://localhost
     description: Local server
   - url: https://monapi.com/api
     description: Production server
@@ -126,6 +126,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/errorCsrf'
 
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
   /sanctum/csrf-cookie:
     get:
       tags:
@@ -321,6 +327,490 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
+  /api/species/{id}:
+    get:
+      tags:
+        - species
+      summary: Get a species
+      operationId: species.show
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Species id
+      responses:
+        '200':
+          description: Successfully fetched a species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpeciesShow200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/species:
+    get:
+      tags:
+        - species
+      summary: Get all species
+      operationId: species.index
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpeciesIndex200'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - species
+      summary: Create a species
+      operationId: species.create
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpeciesCreateMessage'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpeciesCreate200'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/races/{id}:
+    get:
+      tags:
+        - races
+      summary: Get a race
+      operationId: races.show
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Race id
+      responses:
+        '200':
+          description: Successfully fetched a race
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RacesShow200'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/races:
+    get:
+      tags:
+        - races
+      summary: Get all races
+      operationId: races.index
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RacesIndex200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - races
+      summary: Create a race
+      operationId: races.create
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RacesCreateMessage'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RacesCreate200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/pet-shops/{id}:
+    get:
+      tags:
+        - pet-shops
+      summary: Get a pet shop
+      operationId: pet-shops.show
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Pet shop id
+      responses:
+        '200':
+          description: Successfully fetched a pet shop
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetShopsShow200'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/pet-shops:
+    get:
+      tags:
+        - pet-shops
+      summary: Get all races
+      operationId: pet-shops.index
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: city
+          in: query
+          description: City name
+          required: false
+          schema:
+            type: string
+        - name: zipcode
+          in: query
+          description: City zipcode
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetShopsIndex200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - pet-shops
+      summary: Create a race
+      operationId: pet-shops.create
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetShopsCreateMessage'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetShopsCreate200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/animals/{id}:
+    get:
+      tags:
+        - animals
+      summary: Get an animal
+      operationId: animals.show
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Animal id
+      responses:
+        '200':
+          description: Successfully fetched an animal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalsShow200'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/animals:
+    get:
+      tags:
+        - animals
+      summary: Get all animals
+      operationId: animals.index
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: race
+          in: query
+          description: Animal race
+          required: false
+          schema:
+            type: string
+        - name: species
+          in: query
+          description: Animal species
+          required: false
+          schema:
+            type: string
+        - name: age_min
+          in: query
+          description: Animal age min
+          required: false
+          schema:
+            type: integer
+        - name: age_max
+          in: query
+          description: Animal age max
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalsIndex200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - animals
+      summary: Create an Animal
+      operationId: animals.create
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimalsCreateMessage'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalsCreate200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /api/animals-user:
+    get:
+      tags:
+        - favorties
+      summary: Get all user favorties
+      operationId: favorites.index
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavortiesIndex200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+        - favorties
+      summary: Create an Animal
+      operationId: animals.create
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FavoritesCreateMessage'
+      responses:
+        '200':
+          description: Successfully fetched all species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavoritesCreate200'
+        '404':
+          description: Species not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        default:
+          description: Error - Returns an error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
 
   /api/user/confirm-password:
     post:
@@ -455,7 +945,12 @@ components:
           description: CSRF token validation error the request header is missing the CSRF token or the token is invalid
           type: string
           required: true
-
+    404:
+      type: object
+      properties:
+        message:
+          description: Error message
+          type: string
     errorUnauthenticated:
       type: object
       properties:
@@ -463,3 +958,349 @@ components:
           description: Unauthenticated error
           type: string
           required: true
+    SpeciesShow200:
+      type: object
+      properties:
+        id:
+          description: Species ID
+          type: integer
+        name:
+          description: Species name
+          type: string
+    SpeciesIndex200:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: Species ID
+            type: integer
+          name:
+            description: Species name
+            type: string
+    SpeciesCreateMessage:
+      type: object
+      properties:
+        name:
+          description: Species name
+          type: string
+    SpeciesCreate200:
+      type: object
+      properties:
+        name:
+          description: Species name
+          type: string
+        id:
+          description: Species ID
+          type: integer
+    RacesShow200:
+      type: object
+      properties:
+        id:
+          description: Race ID
+          type: integer
+        species_id:
+          description: ID of the race's species
+          type: integer
+        name:
+          description: Race name
+          type: string
+    RacesIndex200:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: Race ID
+            type: integer
+          species_id:
+            description: ID of the race's species
+            type: integer
+          name:
+            description: Species name
+            type: string
+    RacesCreateMessage:
+      type: object
+      properties:
+        name:
+          description: Race name
+          type: string
+        species_id:
+          description: ID of the race's species
+          type: string
+    RacesCreate200:
+      type: object
+      properties:
+        name:
+          description: Race name
+          type: string
+        species_id:
+          description: ID of the race's species
+          type: string
+        id:
+          description: Race ID
+          type: string
+    PetShopsShow200:
+      type: object
+      properties:
+        name:
+          description: Pet shop name
+          type: string
+    PetShopsIndex200:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: Pet shop ID
+            type: integer
+          name:
+            description: Pet shop name
+            type: string
+          address:
+            description: Pet shop address
+            type: string
+          zipcode:
+            description: Pet shop zipcode
+            type: string
+          city:
+            description: Pet shop city
+            type: string
+          phone:
+            description: Pet shop phone
+            type: string
+          content:
+            description: Pet shop description
+            type: string
+          medias_id:
+            description: ID of the pet shop's medias
+            type: string
+    PetShopsCreateMessage:
+      type: object
+      properties:
+        name:
+          description: Pet shop name
+          type: string
+        address:
+          description: Pet shop address
+          type: string
+        zipcode:
+          description: Pet shop zipcode
+          type: string
+        city:
+          description: Pet shop city
+          type: string
+        phone:
+          description: Pet shop phone
+          type: string
+    PetShopsCreate200:
+      type: object
+      properties:
+        name:
+          description: Pet shop name
+          type: string
+        address:
+          description: Pet shop address
+          type: string
+        zipcode:
+          description: Pet shop zipcode
+          type: string
+        city:
+          description: Pet shop city
+          type: string
+        phone:
+          description: Pet shop phone
+          type: string
+        id:
+          description: Pet shop ID
+          type: string
+    AnimalsShow200:
+      type: object
+      properties:
+        id:
+          description: Animal ID
+          type: integer
+        name:
+          description: Animal name
+          type: string
+        gender:
+          description: Animal gender
+          type: string
+        date_of_birth:
+          description: Animal date of birth
+          type: string
+        race_id:
+          description: ID of the animal race
+          type: integer
+        pet_shop_id:
+          description: ID of the animal pet shop
+          type: integer
+        medias_id:
+          description: ID of the animal medias
+          type: integer
+        pet_shops:
+          description: ID of the animal pet shop
+          type: object
+          properties:
+            id:
+              description: Pet shop ID
+              type: integer
+            name:
+              description: Pet shop name
+              type: string
+            address:
+              description: Pet shop address
+              type: string
+            zipcode:
+              description: Pet shop zipcode
+              type: string
+            city:
+              description: Pet shop city
+              type: string
+            phone:
+              description: Pet shop phone
+              type: string
+            content:
+              description: Pet shop description
+              type: string
+            medias_id:
+              description: ID of the pet shop's medias
+              type: integer
+    AnimalsIndex200:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: Animal ID
+            type: integer
+          name:
+            description: Animal name
+            type: string
+          gender:
+            description: Animal gender
+            type: string
+          date_of_birth:
+            description: Animal date of birth
+            type: string
+          race_id:
+            description: ID of the animal's race
+            type: integer
+          pet_shop_id:
+            description: ID of the animal's pet shop
+            type: integer
+          medias_id:
+            description: ID of the animal's medias
+            type: integer
+          races:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  description: ID of the animal's race
+                  type: integer
+                species_id:
+                  description: ID of the animal's species
+                  type: integer
+                name:
+                  description: Animal name
+                  type: string
+                species:
+                  type: object
+                  properties:
+                    id:
+                      description: ID of the animal's species
+                      type: integer
+                    name:
+                      description: Name of the animal's species
+                      type: string
+    AnimalsCreateMessage:
+      type: object
+      properties:
+        name:
+          description: Animal name
+          type: string
+        gender:
+          description: Animal gender
+          type: string
+        date_of_birth:
+          description: Animal date of birth
+          type: string
+        race_id:
+          description: ID of the animal's race
+          type: integer
+        pet_shop_id:
+          description: ID of the animal's pet shop
+          type: integer
+    AnimalsCreate200:
+      type: object
+      properties:
+        name:
+          description: Animal name
+          type: string
+        gender:
+          description: Animal gender
+          type: string
+        date_of_birth:
+          description: Animal date of birth
+          type: string
+        race_id:
+          description: ID of the animal's race
+          type: integer
+        pet_shop_id:
+          description: ID of the animal's pet shop
+          type: integer
+        id:
+          description: Animal ID
+          type: integer
+    FavortiesIndex200:
+      type: array
+      items:
+        type: object
+        properties:
+          animal_id:
+            description: ID of the animal
+            type: integer
+          user_id:
+            description: ID of the user
+            type: integer
+          animal:
+            type: object
+            properties:
+              id:
+                description: Animal ID
+                type: integer
+              name:
+                description: Animal name
+                type: string
+              gender:
+                description: Animal gender
+                type: string
+              date_of_birth:
+                description: Animal date of birth
+                type: string
+              race_id:
+                description: ID of the animal's race
+                type: integer
+              pet_shop_id:
+                description: ID of the animal's pet shop
+                type: integer
+              media_id:
+                description: ID of the animal's medias
+                type: integer
+    FavoritesCreateMessage:
+      type: object
+      properties:
+        id:
+          description: Animal ID
+          type: integer
+    FavoritesCreate200:
+      type: object
+      properties:
+        user_id:
+          description: User ID
+          type: integer
+        animal_id:
+          description: Animal ID
+          type: integer
