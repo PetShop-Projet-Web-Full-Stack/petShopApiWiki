@@ -12,6 +12,7 @@
     <toc-element topic="API-Reference.md">
         <toc-element topic="Get-Cookie.md"/>
         <toc-element topic="Authentication.md">
+            <toc-element topic="Get-user.md"/>
             <toc-element topic="Create-user.md"/>
             <toc-element topic="login.md"/>
             <toc-element topic="Logout.md"/>

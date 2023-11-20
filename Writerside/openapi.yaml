@@ -132,6 +132,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
+
+  /api/user:
+    get:
+      tags:
+        - user
+      summary: Get data of the authenticated user
+      operationId: user
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+      responses:
+        '200':
+          description: OK - Returns the authenticated user data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUser'
+        '401':
+          description: Unauthorized - User not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorUnauthenticated'
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+
   /sanctum/csrf-cookie:
     get:
       tags:
