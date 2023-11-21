@@ -1,14 +1,13 @@
 # API Reference
 
-The API reference is a technical document that describes how to use the API. 
+The API reference is a technical document that describes how to use the API.
 The API documentation is a user guide that
-explains how to use the API. 
+explains how to use the API.
 The API reference is a subset of the API documentation.
-
 
 ## API Documentation
 
-Discovers all possibilities of the API. 
+Discovers all possibilities of the API.
 The API documentation is a user guide that explains how to use the API.
 
 All features of the API are documented in the subtopics of this topic.
@@ -20,9 +19,8 @@ lest go to the [Create user](Create-user.md) topic.
 This api use [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum) for authentication.
 read the next section for more information about authentication in javascript and axios.
 
-Debug the api with [Postman](https://www.postman.com/) read the tutorial [use Postman with Sanctum](TutorialPostman.md) 
+Debug the api with [Postman](https://www.postman.com/) read the tutorial [use Postman with Sanctum](TutorialPostman.md)
 for more information about authentication in Postman and explains to set up the tool for work with Sanctum.
-
 
 ## Request with axios for auth whit Sanctum 3 & fortify
 
@@ -30,9 +28,12 @@ Is a simple example for use axios with Sanctum 3 & fortify for authentication.
 for more information about Sanctum 3 & fortify read the [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum)
 
 ### Use axios with default config for request main api
+<warning>
+    Use axios version 1.3.3 for work with this example of code.
+</warning>
 install axios
 ```shell
-npm install axios
+npm i axios@1.3.3
 ```
 
 Instance of axios with default config for request main api
@@ -51,7 +52,7 @@ const RequestApi = axios.create({
 });
 ```
 
-#### Exemple function for register user
+#### Example function for register user
 ```javascript
 /**
  * Register User
@@ -81,7 +82,8 @@ async function register({name, email, password, password_confirmation}) {
 }
 ```
 
-#### Exemple function for login user
+#### Example function for login user
+
 ```javascript
 /**
  * login user with email and password
@@ -109,7 +111,8 @@ async function login(email, password) {
 }
 ```
 
-#### Exemple function for logout user
+#### Example function for logout user
+
 ```javascript
 /**
  * logout user
