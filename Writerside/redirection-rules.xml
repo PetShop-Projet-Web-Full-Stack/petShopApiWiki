@@ -26,4 +26,12 @@
         <description>Created after removal of "How to use postman" from PetShopApi-wiki</description>
         <accepts>How-to-use-postman.html</accepts>
     </rule>
+    <rule id="5291d9fa">
+        <description>Created after removal of "Remove user" from PetShopApi-wiki</description>
+        <accepts>Remove-user.html</accepts>
+    </rule>
+    <rule id="160e8f88">
+        <description>Created after removal of "Delete User data" from PetShopApi-wiki</description>
+        <accepts>RemoveUser2.html</accepts>
+    </rule>
 </rules>

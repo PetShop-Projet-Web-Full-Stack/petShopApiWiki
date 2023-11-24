@@ -164,6 +164,62 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorCsrf'
+    delete:
+      tags:
+        - user-delete
+      summary: Soft delete the user account and all data is anonymized
+      operationId: user.delete
+      parameters:
+        - name: HeaderAuth
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/headerAuth'
+        - name: id
+          in: query
+          description: User id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content - User deleted successfully or user already deleted (empty response)
+          content:
+            application/json:
+              schema:
+                type: object
+
+        '401':
+          description: Unauthorized - User not authenticated or not authorized to delete the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    description: Unauthorized - User not authenticated or not authorized to delete the user
+                    type: string
+        '403':
+          description: Forbidden - User not authorized to delete
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: Forbidden - User not authorized to delete the user or Admin can't be deleted
+                    type: string
+        '419':
+          description: Session Expired - Validation errors (CSRF token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCsrf'
+        '422':
+          description: Unpronounceable Content - Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
 
   /sanctum/csrf-cookie:
     get:
@@ -294,13 +350,13 @@ paths:
           description: New password
           required: true
           schema:
-              type: string
+            type: string
         - name: password_confirmation
           in: query
           description: New password confirmation
           required: true
           schema:
-              type: string
+            type: string
       responses:
         '200':
           description: OK - Password updated successfully empty response
@@ -360,6 +416,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
+
   /api/species/{id}:
     get:
       tags:
@@ -910,11 +967,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/errorCsrf'
 
-
-
-
-
-# Components templates for the API documentation
+# component templates for the API documentation
 components:
   schemas:
     headerAuth:

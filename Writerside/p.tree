@@ -12,16 +12,21 @@
     <toc-element topic="API-Reference.md">
         <toc-element topic="Get-Cookie.md"/>
         <toc-element topic="Authentication.md">
-            <toc-element topic="Get-user.md"/>
-            <toc-element topic="Create-user.md"/>
+            <toc-element topic="Create-user.md">
+            </toc-element>
             <toc-element topic="login.md"/>
             <toc-element topic="Logout.md"/>
+        </toc-element>
+        <toc-element topic="User.md">
+            <toc-element topic="Get-user.md"/>
+            <toc-element topic="Update-user-password.md"/>
+            <toc-element topic="Delete-user.md"/>
             <toc-element topic="Forgot-password.md"/>
             <toc-element topic="Reset-password.md"/>
-            <toc-element topic="Update-user-password.md"/>
-            <toc-element topic="Confirm-password.md"/>
             <toc-element topic="Confirm-password-status.md"/>
+            <toc-element topic="Confirm-password.md"/>
         </toc-element>
+        <toc-element topic="Update-user.md"/>
         <toc-element topic="Species.md">
             <toc-element topic="Create-a-species.md"/>
             <toc-element topic="Get-all-species.md"/>
