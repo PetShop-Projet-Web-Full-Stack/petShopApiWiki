@@ -8,7 +8,10 @@
 
     <toc-element topic="Default-topic.md"/>
     <toc-element topic="QuickStarter.md"/>
-    <toc-element topic="TutorialPostman.md"/>
+    <toc-element topic="Tutorial.md">
+        <toc-element topic="TutorialPostman.md"/>
+        <toc-element topic="Tutorial-hot-tow-install-docker-on-WSL.md"/>
+    </toc-element>
     <toc-element topic="API-Reference.md">
         <toc-element topic="Get-Cookie.md"/>
         <toc-element topic="Authentication.md">
