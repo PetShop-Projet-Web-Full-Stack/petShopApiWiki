@@ -2,7 +2,7 @@
 
 ## Introduction
 
-On this page you will find a quick starter guide
+On this page, you will find a quick starter guide
 for docker install or Lamps stack.
 
 ### Requirement For Lamps Stack
@@ -12,75 +12,36 @@ for docker install or Lamps stack.
 - [Apache 2.4](https://httpd.apache.org/download.cgi)
 - [Composer 2.X](https://getcomposer.org/download/)
 
-## Run Api with Lamps Stack
+## Run Api with Docker
 
-### Install lamp stack
+### Clone the repository
 
-First you need to install lamp stack on your machine.
-You can find the installation
-guide [here](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04).
-
-> You can also use [Xampp](https://www.apachefriends.org/fr/index.html) or [Wamp](https://www.wampserver.com/en/)
-
-### Install dependencies
-
-To install the dependencies you need to run the following command:
+To clone the repository, you need to run the following command:
 
 ```bash
-composer install
-```
+## clone the repository with ssh
+git clone git@github.com:PetShop-Projet-Web-Full-Stack/petShopAPI.git
 
-<warning>
-    You need to have composer installed on your machine, if you use WSL start linux terminal and run the command.
-</warning>
+## clone the repository with https
+git clone https://github.com/PetShop-Projet-Web-Full-Stack/petShopAPI.git
 
-### Create .env file
-
-To create the .env file you need to run the following command:
-
-```bash
-cp .env.example .env
 ```
 
 <note>
- You can change the database name, username and password in the .env file
+ You have followed the tutorial to configure Docker on WSL.
+    use git clone ssh to clone the repository.
 </note>
-
-### Generate key
-
-To generate the key you need to run the following command:
-
-```bash
-php artisan key:generate
-```
-
-### Run migrations
-
-To run the migrations you need to run the following command:
-
-```bash
-php artisan migrate
-```
-
-### Run seeders (optional)
-
-this step is optional, it will create fake data in the database.
-To run the seeders you need to run the following command:
-
-```bash
-php artisan db:seed
-```
-
-## Run Api with Docker (Recommended for development)
 
 ### Install Docker
 
-First you need to install docker on your machine.
-You can find the installation guide [here](https://docs.docker.com/engine/installation/).
+First, you need to install docker on your machine.
+You can find the installation guide [here, ](https://docs.docker.com/engine/installation/)
+Or
+You can follow the [tutorial](Tutorial-hot-tow-install-docker-on-WSL.md) to install docker on WSL.
 
 ### Install dependencies {id="install-dependencies_1"}
 
-To install the dependencies you need to run the following command:
+To install the dependencies, you need to run the following command:
 
 ```bash
 composer install
@@ -92,7 +53,7 @@ composer install
 
 ### Create .env file {id="create-env-file_1"}
 
-To create the .env file you need to run the following command:
+To create the .env file, you need to run the following command:
 
 ```bash
 cp .env.example .env
@@ -106,7 +67,7 @@ cp .env.example .env
     You need to configure your sanctum domain to use sanctum on your front app.
 </warning>
 
-To configure your sanctum domain you need to go to the .env file and change the following line:
+To configure your sanctum domain, you need to go to the .env file and change the following line:
 
 ```bash
 SANCTUM_STATEFUL_DOMAINS=localhost:3000
@@ -114,7 +75,7 @@ SANCTUM_STATEFUL_DOMAINS=localhost:3000
 
 <warning>
 SANCUM_STATEFUL_DOMAINS is the full url of your front app (ex: localhost:3000) 
-This will allow you to use sanctum on your front app. if you don't do this you will send 403 error.
+This will allow you to use sanctum on your front app. if you don't do this, you will send 403 error.
 </warning>
 
 ### Configure your front url
@@ -123,11 +84,11 @@ This will allow you to use sanctum on your front app. if you don't do this you w
 FRONT_URL="http://localhost:3000"
 ```
 
-FRONT_URL is the full url of your front app used for redirection link in all email or link sent by the api.
+FRONT_URL is the full url of your front app used for a redirection link in all emails or link sent by the api.
 
 ### Configure your mail
 
-To configure your mail you need to go to the .env file and change the following lines:
+To configure your mail, you need to go to the .env file and change the following lines:
 
 ```bash
 MAIL_MAILER=smtp
@@ -145,6 +106,7 @@ You can use [mailtrap](https://mailtrap.io/) for development
 </note>
 
 ### Configure your database
+
 <warning>
     Don't use root for your database username because it will not work.
 </warning>
@@ -161,7 +123,7 @@ DB_PASSWORD= [your password]
 
 ### Generate key {id="generate-key_1"}
 
-To generate the key you need to run the following command:
+To generate the key, you need to run the following command:
 
 ```bash
 php artisan key:generate
@@ -173,7 +135,7 @@ php artisan key:generate
     On linux you need to run the command with sudo.
 </warning>
 
-To run the api with docker you need to run the following command:
+To run the api with docker, you need to run the following command:
 
 ```bash
 ./vendor/bin/sail up
@@ -184,7 +146,7 @@ To run the api with docker you need to run the following command:
 </note>
 ### Run migrations {id="run-migrations_1"}
 
-To run the migrations you need to run the following command:
+To run the migrations, you need to run the following command:
 
 ```bash
 ./vendor/bin/sail artisan migrate
@@ -192,8 +154,8 @@ To run the migrations you need to run the following command:
 
 ### Run seeders (optional) {id="run-seeders-optional_1"}
 
-this step is optional, it will create fake data in the database.
-To run the seeders you need to run the following command:
+This step is optional, it will create fake data in the database.
+To run the seeders, you need to run the following command:
 
 ```bash
 ./vendor/bin/sail artisan db:seed
@@ -201,8 +163,8 @@ To run the seeders you need to run the following command:
 
 ### Run tests (optional)
 
-this step is optional, it will run the tests.
-To run the tests you need to run the following command:
+This step is optional, it will run the tests.
+To run the tests, you need to run the following command:
 
 ```bash
 ./vendor/bin/sail artisan test
@@ -210,7 +172,7 @@ To run the tests you need to run the following command:
 
 ### Run api
 
-To run the api you need to go to the following url:
+To run the api, you need to go to the following url:
 
 ```bash
 http://localhost/
